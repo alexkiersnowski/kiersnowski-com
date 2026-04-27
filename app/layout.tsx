@@ -10,8 +10,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "kiersnowski.com",
-  description: "",
+  title: "Alex Kiersnowski",
+  description:
+    "Lead Product Designer based in Warsaw. Ask me about my work, background, and how I think — this site is an AI chat trained on my experience.",
 };
 
 export default function RootLayout({
