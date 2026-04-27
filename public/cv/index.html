@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CV — Alex Kiersnowski</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: [
+                "Inter",
+                "ui-sans-serif",
+                "system-ui",
+                "-apple-system",
+                "Segoe UI",
+                "Roboto",
+                "Helvetica Neue",
+                "Arial",
+                "sans-serif",
+              ],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /*
+        A4: 210mm x 297mm. Screen sheet uses that width and one page min-height;
+        inner padding matches @page margins so on-screen layout aligns with PDF.
+      */
+      .cv-page {
+        width: 210mm;
+        max-width: 100%;
+        min-height: 297mm;
+        box-sizing: border-box;
+        padding: 18mm 20mm;
+      }
+
+      /* Print: hide chrome, keep real text (no canvas/SVG tricks). */
+      @media print {
+        .no-print {
+          display: none !important;
+        }
+        body {
+          background: white !important;
+        }
+        .cv-page {
+          width: auto !important;
+          max-width: none !important;
+          min-height: 0 !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          border: none !important;
+          box-shadow: none !important;
+          border-radius: 0 !important;
+        }
+        .cv-wrap {
+          padding: 0 !important;
+          margin: 0 !important;
+          max-width: none !important;
+        }
+        @page {
+          size: A4;
+          margin: 18mm 20mm;
+        }
+      }
+
+      /*
+        Horizontal rules: symmetric vertical band; +1pt over Tailwind my-6 (1.5rem).
+        hr + h2: zero h2 top margin so it doesn’t stack with hr margin-bottom.
+      */
+      #cv-root.prose hr {
+        margin-top: calc(1.5rem + 1pt);
+        margin-bottom: calc(1.5rem + 1pt);
+      }
+      #cv-root.prose hr + h2 {
+        margin-top: 0 !important;
+      }
+
+      /* Header: tight name → role line; then role → contact line. */
+      #cv-root.prose h1 + p {
+        margin-top: 0.25rem;
+        margin-bottom: 0.2rem;
+      }
+      #cv-root.prose h1 + p + p {
+        margin-top: 0.35rem;
+      }
+
+      /*
+        Pure-md line before final `---` / Languages: paragraph that directly precedes the last <hr>.
+        If you add another horizontal rule at the end, this selector may need updating.
+      */
+      #cv-root.prose p:has(+ hr:last-of-type) {
+        margin-top: 0.75rem;
+        font-size: 12px;
+        line-height: 1.45;
+        color: rgb(100 116 139);
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen bg-neutral-50 font-sans text-slate-900 antialiased"
+  >
+    <div
+      class="cv-wrap mx-auto max-w-full px-4 pb-28 pt-10 sm:px-6 sm:pt-12"
+    >
+      <main
+        class="cv-page mx-auto rounded-lg border border-slate-200 bg-white shadow-sm"
+      >
+        <div
+          id="cv-root"
+          class="prose prose-slate max-w-none font-sans text-[12px] text-slate-900 antialiased prose-headings:font-sans prose-headings:tracking-tight prose-headings:text-slate-900
+            prose-h1:mb-0 prose-h1:scroll-mt-24 prose-h1:text-xl prose-h1:font-bold prose-h1:leading-tight prose-h1:text-slate-900
+            prose-h2:mt-8 prose-h2:mb-3 prose-h2:scroll-mt-24 prose-h2:text-base prose-h2:font-semibold prose-h2:leading-snug prose-h2:text-slate-900
+            prose-h3:mt-6 prose-h3:mb-2 prose-h3:scroll-mt-24 prose-h3:text-[12px] prose-h3:font-semibold prose-h3:leading-snug prose-h3:text-slate-800
+            prose-p:text-[12px] prose-p:leading-snug prose-p:text-slate-800
+            prose-li:my-0.5 prose-li:text-[12px] prose-li:leading-snug prose-li:marker:text-slate-400
+            prose-strong:text-[12px] prose-strong:font-semibold prose-strong:text-slate-900
+            prose-hr:border-slate-200
+            prose-a:text-[12px] prose-a:font-normal prose-a:text-slate-500 prose-a:underline prose-a:decoration-slate-400/70 prose-a:underline-offset-2 hover:prose-a:text-slate-700 hover:prose-a:decoration-slate-500
+            prose-em:text-[12px]"
+        >
+          <p class="text-slate-500">Loading CV…</p>
+        </div>
+      </main>
+    </div>
+
+    <div
+      id="download-fab"
+      class="no-print fixed inset-x-0 bottom-0 z-50 flex justify-center pb-6"
+    >
+      <a
+        href="/cv/alex-kiersnowski-cv-2026.pdf"
+        download="alex-kiersnowski-cv-2026.pdf"
+        class="download-fab__btn pointer-events-auto flex items-center gap-3 rounded-full border border-white/25 bg-[#2d2d2d] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-black/25 outline-none ring-1 ring-black/10 transition hover:bg-[#3a3a3a] focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 active:bg-[#252525]"
+      >
+        <span>Download PDF</span>
+        <span
+          class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white"
+          aria-hidden="true"
+        >
+          <svg
+            class="h-4 w-4 text-white"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 5v9" />
+            <path d="m8 13 4 4 4-4" />
+            <path d="M5 19h14" />
+          </svg>
+        </span>
+      </a>
+    </div>
+
+    <script type="module">
+      import { marked } from "https://esm.sh/marked@12.0.2";
+
+      marked.setOptions({
+        gfm: true,
+        breaks: false,
+      });
+
+      const root = document.getElementById("cv-root");
+
+      async function loadCv() {
+        try {
+          const res = await fetch("/cv/cv.md", { cache: "no-store" });
+          if (!res.ok) throw new Error(String(res.status));
+          const md = await res.text();
+          root.innerHTML = marked.parse(md);
+          root.querySelectorAll("a").forEach((a) => {
+            a.target = "_blank";
+            a.rel = "noopener noreferrer";
+          });
+        } catch (e) {
+          root.innerHTML =
+            '<p class="text-red-700"><strong>Could not load <code>cv.md</code>.</strong> Open this folder with a local static server so fetch works (e.g. run <code class="rounded bg-slate-100 px-1 py-0.5 text-sm">npx serve .</code> in the project directory), then print.</p>';
+        }
+      }
+
+      loadCv();
+    </script>
+  </body>
+</html>
