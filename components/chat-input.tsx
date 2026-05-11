@@ -39,7 +39,7 @@ export function ChatInput({ onSubmit }: { onSubmit?: (text: string) => void }) {
   const disabled = value.trim().length === 0;
 
   return (
-    <div className="border-border bg-card flex w-full items-center rounded-2xl border shadow-sm">
+    <div className="border-border bg-card flex w-full items-end rounded-2xl border shadow-sm">
       <textarea
         ref={textareaRef}
         rows={1}
