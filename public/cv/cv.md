@@ -20,9 +20,9 @@ Lead Product Designer with 10+ years experience owning products from strategy to
 
 ## Experience
 
-### Freelance — Braza
+### Lead Product Designer — Braza
 
-March 2026 – Present · Warsaw, Poland
+March 2026 – Present · Freelance · Warsaw, Poland
 
 Full-stack bilingual operations platform for a performance nutrition business, designed and built solo as founding technical infrastructure.
 
@@ -49,7 +49,7 @@ Stack: Next.js 15 · React 19 · TypeScript · Supabase (Postgres) · Tailwind C
 
 ### Lead Product Designer — BPP
 
-Jul 2023 – Mar 2024 · London, UK · Hybrid
+Jul 2023 – Mar 2024 · Contract · London, UK · Hybrid
 
 One of the UK's largest professional education providers.
 
@@ -58,7 +58,7 @@ One of the UK's largest professional education providers.
 
 ### Senior Product Designer — eBay / Adevinta
 
-Sep 2021 – Sep 2022 · Berlin, Germany · Hybrid
+Sep 2021 – Sep 2022 · Contract · Berlin, Germany · Hybrid
 
 Adevinta acquired eBay Kleinanzeigen during this engagement.
 

@@ -31,6 +31,8 @@ export default function Page() {
   const [expanded, setExpanded] = useState(false);
   const toggle = () => setExpanded((v) => !v);
 
+  const [sessionId] = useState(() => crypto.randomUUID());
+
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [streaming, setStreaming] = useState(false);
   const [waiting, setWaiting] = useState(false);
@@ -115,6 +117,14 @@ export default function Page() {
     setMessages(next);
     setStreaming(true);
     setWaiting(true);
+
+    // Fire-and-forget prompt log. Failures must not break the chat.
+    fetch("/api/log-prompt", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ sessionId, prompt: text }),
+      keepalive: true,
+    }).catch(() => {});
 
     // Enter follow mode — every subsequent chunk will snap to bottom until the
     // user scrolls up or the stream ends.
@@ -358,6 +368,7 @@ function Disclaimer() {
   return (
     <p className="text-tertiary mt-2 text-center text-[12px] leading-tight">
       AI-generated responses can be inaccurate and may not fully represent Alex Kiersnowski.
+      Conversations are logged.
     </p>
   );
 }

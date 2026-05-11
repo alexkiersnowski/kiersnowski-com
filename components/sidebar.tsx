@@ -116,7 +116,7 @@ export function Sidebar({ expanded, onToggle }: SidebarProps) {
   return (
     <aside
       className={cn(
-        "border-border bg-background flex h-full flex-col justify-between border-r py-3",
+        "border-border bg-white dark:bg-zinc-950 md:bg-background md:dark:bg-background flex h-full flex-col justify-between border-r py-3",
         // Mobile: fixed slide-over
         "fixed left-0 top-0 z-50 w-[280px] transition-transform duration-300 ease-out",
         expanded ? "translate-x-0" : "-translate-x-full",
