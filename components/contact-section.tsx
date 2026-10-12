@@ -17,9 +17,9 @@ export function ContactSection() {
           href={mailto}
           className="group inline-flex items-end gap-[0.04em] font-display text-mega -ml-[0.04em] text-foreground max-lg:text-[min(19cqw,9rem)] lg:items-center"
         >
-          {/* Same size and stacking as the hero name below desktop, so the page opens and closes in one voice. */}
+          {/* Same size and stacking as the hero name on phones; one line from tablet up. */}
           <RollText>
-            Let’s <br className="lg:hidden" />
+            Let’s <br className="sm:hidden" />
             build
           </RollText>
           <ArrowUpRightIcon weight="bold" className="size-[1em] shrink-0" />

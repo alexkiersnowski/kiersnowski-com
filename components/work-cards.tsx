@@ -6,7 +6,7 @@ import { ProjectMedia } from "@/components/project-media";
 import { projects, type Project } from "@/lib/projects";
 import { cn } from "cn";
 
-function WorkCard({ project, index, wide }: { project: Project; index: number; wide: boolean }) {
+function WorkCard({ project, index }: { project: Project; index: number }) {
   const ref = useRef<HTMLAnchorElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -37,7 +37,7 @@ function WorkCard({ project, index, wide }: { project: Project; index: number; w
           project={project}
           index={index}
           active={inView}
-          sizes={wide ? "100vw" : "(min-width: 640px) 50vw, 100vw"}
+          sizes="100vw"
           className="transition-transform duration-700 ease-[cubic-bezier(0.2,0.7,0.2,1)] group-hover:scale-[1.025] group-focus-visible:scale-[1.025]"
         />
       </div>
@@ -62,16 +62,13 @@ export function WorkCards({ className }: { className?: string }) {
       <h2 className="pb-6 font-mono text-xs tracking-[0.08em] text-muted-foreground uppercase">
         Selected work
       </h2>
-      <ul className="grid gap-x-[clamp(1rem,2vw,2rem)] gap-y-14 sm:grid-cols-2">
-        {projects.map((project, index) => {
-          // The lead project (first in the list) is always the full-width hero; the rest pair up.
-          const wide = index === 0;
-          return (
-            <li key={project.slug} className={cn(wide && "sm:col-span-2")}>
-              <WorkCard project={project} index={index} wide={wide} />
-            </li>
-          );
-        })}
+      {/* One column on phones and tablets: every project card is the same size. */}
+      <ul className="grid gap-y-14">
+        {projects.map((project, index) => (
+          <li key={project.slug}>
+            <WorkCard project={project} index={index} />
+          </li>
+        ))}
       </ul>
     </div>
   );

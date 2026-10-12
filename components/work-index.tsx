@@ -77,11 +77,15 @@ export function WorkIndex({ className }: { className?: string }) {
         current = index;
       };
 
+      // Mouse and hovering Apple Pencil (iPadOS reports pen hover as pointer events) get the
+      // preview; fingers don't, so tapping a row on a tablet just opens the project.
+      const hovers = (event: PointerEvent) => event.pointerType === "mouse" || event.pointerType === "pen";
+
       const point = (event: PointerEvent) => {
         const rect = list.getBoundingClientRect();
         moveTo(event.clientX - rect.left, event.clientY - rect.top);
         // Re-show after a scroll hid it, once the pointer moves over the list again.
-        if (!shown && event.pointerType === "mouse") toggle(true);
+        if (!shown && hovers(event)) toggle(true);
       };
 
       // Scrolling doesn't move the pointer, so no leave event fires; close right away instead.
@@ -90,7 +94,7 @@ export function WorkIndex({ className }: { className?: string }) {
       };
 
       const onEnter = (event: PointerEvent) => {
-        if (event.pointerType !== "mouse") return;
+        if (!hovers(event)) return;
         const rect = list.getBoundingClientRect();
         // Jump into place first so the frame doesn't fly in from its last position.
         gsap.set(frame, { x: event.clientX - rect.left, y: event.clientY - rect.top });
