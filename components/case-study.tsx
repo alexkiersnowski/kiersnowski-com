@@ -64,7 +64,7 @@ function FigureBlock({
     <figure>
       {figure.demo ? (
         // Demos keep 16:9 at every size so app UI isn't cropped on phones.
-        <DemoPlayer media={figure} sizes={sizes} className="aspect-video max-h-[85svh] w-full" />
+        <DemoPlayer media={figure} sizes={sizes} className="aspect-video w-full" />
       ) : (
         <MediaFrame media={figure} seed={number} sizes={sizes} preload={preload} className={aspect} />
       )}
@@ -76,7 +76,9 @@ function FigureBlock({
 /** Renders a media row and advances the shared figure counter. */
 function Block({ block, next, hero = false }: { block: MediaBlock; next: () => number; hero?: boolean }) {
   if (block.kind === "full") {
-    const aspect = block.ratio === "16/9" ? "aspect-video w-full" : "aspect-[4/3] max-h-[85svh] w-full sm:aspect-[16/9]";
+    // Always 16:9 to match the source images. No height cap: capping height without width
+    // widened the frame on short screens, so object-cover zoomed in and cropped the image.
+    const aspect = "aspect-video w-full";
     return (
       <FigureBlock
         figure={block.figure}

@@ -13,7 +13,7 @@ export type Figure = Media & { caption: string };
 
 /** One row of the case study: a single full-width key visual, or two side by side. */
 export type MediaBlock =
-  | { kind: "full"; figure: Figure; /** Locks the frame to 16:9 at every size. */ ratio?: "16/9" }
+  | { kind: "full"; figure: Figure }
   | { kind: "pair"; figures: [Figure, Figure] };
 
 export type Project = {
@@ -265,7 +265,6 @@ export const projects: Project[] = [
       },
       {
         kind: "full",
-        ratio: "16/9",
         figure: {
           src: "/images/nord/nord-prototype-before.jpg",
           alt: "Aurora Riff prompt for a Dark Web Monitor alert, with the iPhone home still unchanged",
@@ -274,7 +273,6 @@ export const projects: Project[] = [
       },
       {
         kind: "full",
-        ratio: "16/9",
         figure: {
           src: "/images/nord/nord-prototype-after.jpg",
           alt: "The same prompt after it adds a leaked-credentials alert to the NordVPN iPhone home",
