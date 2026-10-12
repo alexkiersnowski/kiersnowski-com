@@ -5,34 +5,9 @@
     <!-- viewport-fit=cover lets the page draw behind Safari's bars, so the bottom toolbar stays glass instead of a solid gap. -->
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>CV — Alex Kiersnowski</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: [
-                "Inter",
-                "ui-sans-serif",
-                "system-ui",
-                "-apple-system",
-                "Segoe UI",
-                "Roboto",
-                "Helvetica Neue",
-                "Arial",
-                "sans-serif",
-              ],
-            },
-          },
-        },
-      };
-    </script>
+    <!-- Compiled Tailwind v3 + typography and self-hosted Inter (rebuild: npm run cv:css). -->
+    <link rel="preload" href="/cv/fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/cv/cv.css" />
     <style>
       /*
         Phone: the document is the page. No A4 sheet, no frame, reading padding

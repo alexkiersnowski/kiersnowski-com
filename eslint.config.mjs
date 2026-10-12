@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Standalone CV build tooling (Tailwind v3, CommonJS config); not part of the app.
+    "scripts/cv/**",
+    // Compiled CV stylesheet.
+    "public/cv/cv.css",
   ]),
 ]);
 

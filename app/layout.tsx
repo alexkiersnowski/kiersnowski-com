@@ -29,7 +29,10 @@ export const metadata: Metadata = {
   description:
     "Senior Product Designer and Design Engineer. 10+ years bridging product design and production code for early-stage startups.",
   icons: {
+    // PNGs first: Safari ignores SVG favicons. Other browsers pick the SVGs below.
     icon: [
+      { url: "/icon-light.png", type: "image/png", sizes: "64x64", media: "(prefers-color-scheme: light)" },
+      { url: "/icon-dark.png", type: "image/png", sizes: "64x64", media: "(prefers-color-scheme: dark)" },
       {
         url: "/icon-light.svg",
         type: "image/svg+xml",
@@ -64,6 +67,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       data-scroll-behavior="smooth"
       className={`${inter.variable} ${interTight.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
+      <head>
+        {/* Without JS the GSAP intros never run, so undo the pre-hydration hidden states (globals.css). */}
+        <noscript>
+          <style>{`[data-reveal]{transform:none!important}[data-fade],[data-intro],[data-block]{opacity:1!important;visibility:visible!important}`}</style>
+        </noscript>
+      </head>
       <body className="flex min-h-full flex-col">{children}</body>
     </html>
   );
