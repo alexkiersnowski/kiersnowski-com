@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- viewport-fit=cover lets the page draw behind Safari's bars, so the bottom toolbar stays glass instead of a solid gap. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>CV — Alex Kiersnowski</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: [
+                "Inter",
+                "ui-sans-serif",
+                "system-ui",
+                "-apple-system",
+                "Segoe UI",
+                "Roboto",
+                "Helvetica Neue",
+                "Arial",
+                "sans-serif",
+              ],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /*
+        Phone: the document is the page. No A4 sheet, no frame, reading padding
+        only (the wrap supplies it).
+        sm+: A4 sheet, 210mm x 297mm. Inner padding matches @page margins so the
+        on-screen layout aligns with the PDF.
+      */
+      .cv-page {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 100%;
+      }
+
+      /* Desktop canvas. Phones override this to white below. */
+      body {
+        background-color: #fafafa;
+      }
+
+      @media (min-width: 640px) {
+        .cv-page {
+          width: 210mm;
+          min-height: 297mm;
+          padding: 18mm 20mm;
+        }
+      }
+
+      /*
+        iOS Safari 26 tints each bar from the page, not from theme-color.
+        White root matches the document, so the top bar reads white.
+        The bottom bar stays the default translucent toolbar: nothing fixed
+        against that edge carries a background for Safari to extend.
+      */
+      @media (max-width: 639px) {
+        html,
+        body {
+          background-color: #fff;
+        }
+
+        .cv-wrap {
+          padding-top: calc(env(safe-area-inset-top, 0px) + 3rem);
+          padding-right: max(2rem, env(safe-area-inset-right, 0px));
+          padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 7rem);
+          padding-left: max(2rem, env(safe-area-inset-left, 0px));
+        }
+
+        #download-fab {
+          background-color: transparent;
+          padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 1.5rem);
+        }
+      }
+
+      /* Print: hide chrome, keep real text (no canvas/SVG tricks). */
+      @media print {
+        .no-print {
+          display: none !important;
+        }
+        body {
+          background: white !important;
+        }
+        .cv-page {
+          width: auto !important;
+          max-width: none !important;
+          min-height: 0 !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          border: none !important;
+          box-shadow: none !important;
+          border-radius: 0 !important;
+        }
+        .cv-wrap {
+          padding: 0 !important;
+          margin: 0 !important;
+          max-width: none !important;
+        }
+        @page {
+          size: A4;
+          margin: 18mm 20mm;
+        }
+      }
+
+      /*
+        Horizontal rules: symmetric vertical band; +1pt over Tailwind my-6 (1.5rem).
+        hr + h2: zero h2 top margin so it doesn’t stack with hr margin-bottom.
+      */
+      #cv-root.prose hr {
+        margin-top: calc(1.25rem + 1pt);
+        margin-bottom: calc(1.25rem + 1pt);
+      }
+      #cv-root.prose hr + h2 {
+        margin-top: 0 !important;
+      }
+
+      /* Header: tight name → role line; then role → contact line. */
+      #cv-root.prose h1 + p {
+        margin-top: 0.25rem;
+        margin-bottom: 0.2rem;
+      }
+      #cv-root.prose h1 + p + p {
+        margin-top: 0.35rem;
+      }
+
+      /* Role titles: date line sits tight under the title. */
+      #cv-root.prose h3:has(+ p),
+      #cv-root.prose h4:has(+ p) {
+        margin-bottom: 0;
+      }
+      #cv-root.prose h3 + p,
+      #cv-root.prose h4 + p {
+        margin-top: 0.15rem;
+      }
+
+      /*
+        Roles nested under a parent entry (e.g. contracts under one contractor
+        title): indented with a continuous left rule. Spacing between roles is
+        padding, not margin, so the rule doesn't break.
+      */
+      #cv-root.prose .cv-role {
+        margin-left: 0.25rem;
+        padding-left: 1rem;
+        border-left: 1px solid rgb(226 232 240);
+      }
+      #cv-root.prose .cv-role + .cv-role {
+        padding-top: 1rem;
+      }
+      #cv-root.prose .cv-role > :first-child {
+        margin-top: 0;
+      }
+      #cv-root.prose .cv-role > :last-child {
+        margin-bottom: 0;
+      }
+      #cv-root.prose .cv-role h4 {
+        margin-bottom: 0;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.375;
+        color: rgb(30 41 59);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen font-sans text-slate-900 antialiased">
+    <div
+      class="cv-wrap mx-auto max-w-full bg-white sm:bg-transparent sm:px-6 sm:pt-12 sm:pb-28"
+    >
+      <main class="cv-page mx-auto bg-white sm:rounded-lg sm:border sm:border-slate-200 sm:shadow-sm">
+        <div
+          id="cv-root"
+          class="prose prose-slate max-w-none font-sans text-[12px] text-slate-900 antialiased prose-headings:font-sans prose-headings:tracking-tight prose-headings:text-slate-900
+            prose-h1:mb-0 prose-h1:scroll-mt-24 prose-h1:text-xl prose-h1:font-bold prose-h1:leading-tight prose-h1:text-slate-900
+            prose-h2:mt-8 prose-h2:mb-3 prose-h2:scroll-mt-24 prose-h2:text-base prose-h2:font-semibold prose-h2:leading-snug prose-h2:text-slate-900
+            prose-h3:mt-6 prose-h3:mb-2 prose-h3:scroll-mt-24 prose-h3:text-[12px] prose-h3:font-semibold prose-h3:leading-snug prose-h3:text-slate-800
+            prose-p:text-[12px] prose-p:leading-snug prose-p:text-slate-800
+            prose-li:my-0.5 prose-li:text-[12px] prose-li:leading-snug prose-li:marker:text-slate-400
+            prose-strong:text-[12px] prose-strong:font-semibold prose-strong:text-slate-900
+            prose-hr:border-slate-200
+            prose-a:text-[12px] prose-a:font-normal prose-a:text-slate-500 prose-a:underline prose-a:decoration-slate-400/70 prose-a:underline-offset-2 hover:prose-a:text-slate-700 hover:prose-a:decoration-slate-500
+            prose-em:text-[12px]"
+        >
+          <h1>Alex Kiersnowski</h1>
+          <p>Senior Design Engineer · Warsaw, Poland (CET) · Remote, EU &amp; US Eastern hours</p>
+          <p>
+            <a href="mailto:alex.kiersnowski@gmail.com">alex.kiersnowski@gmail.com</a>
+            ·
+            <a href="https://www.linkedin.com/in/alexkiersnowski" target="_blank" rel="noopener noreferrer">linkedin.com/in/alexkiersnowski</a>
+            ·
+            <a href="https://kiersnowski.com" target="_blank" rel="noopener noreferrer">kiersnowski.com</a>
+          </p>
+
+          <hr />
+
+          <h2>Stack</h2>
+          <p>
+            <strong>Frontend:</strong> React · Next.js · TypeScript · Tailwind CSS
+            · shadcn/ui · Radix<br />
+            <strong>Mobile:</strong> React Native · Expo<br />
+            <strong>Backend:</strong> Supabase (Postgres, RLS) · Auth · Stripe ·
+            Vercel<br />
+            <strong>Design &amp; AI:</strong> Figma · Claude Code · Cursor ·
+            Anthropic API · OpenAI API
+          </p>
+
+          <hr />
+
+          <h2>Summary</h2>
+          <p>
+            Senior Design Engineer with 10+ years bridging product design and
+            production code. I ship full-stack web and mobile products end to
+            end, using AI-native workflows and LLM integrations to move from
+            idea to production in days, not weeks. Simply put: I take a product
+            problem, decide what's worth building, ship it to real users, and
+            find out whether they'll use it and pay for it. I do my best work in
+            early-stage startups and fast-moving, high-autonomy teams.
+          </p>
+
+          <hr />
+
+          <h2>Experience</h2>
+
+          <h3>Senior Design Engineer — Nord Security</h3>
+          <p>Jul 2026 – Present · Contract · Warsaw, Poland · Hybrid</p>
+          <p>
+            Worked within the NordVPN apps team alongside the design
+            engineering team, building AI-assisted prototyping infrastructure
+            used by 60+ designers and Product Owners.
+          </p>
+          <ul>
+            <li>
+              Coded production-accurate front-end baselines of the NordVPN iOS
+              and macOS apps (Connect, Real-Time Protection, Dark Web Monitor,
+              Settings), handling complex interaction states and
+              feature-dependent logic
+            </li>
+            <li>
+              Cut AI token consumption and saved hundreds of hours of
+              prototyping time by providing designers a pre-built code baseline
+              instead of generating repetitive UI from scratch
+            </li>
+            <li>
+              Shipped production code via GitLab merge requests to two core
+              repositories: the internal AI prototyping platform and the Aurora
+              AppKit design system
+            </li>
+          </ul>
+
+          <h3>Venture &amp; Product Builds</h3>
+
+          <div class="cv-role">
+            <h4>Design Engineer — Braza</h4>
+            <p>Mar 2026 – May 2026 · Warsaw, Poland · Independent project</p>
+            <p>
+              Full-stack bilingual operations platform designed and built solo
+              for a planned performance nutrition startup. Paused before launch
+              given the scale of the physical operations.
+            </p>
+            <ul>
+              <li>
+                Engineered a macro engine (Mifflin-St Jeor BMR, PAL multipliers,
+                protein yield) across 8 biometric inputs, producing personalised
+                meal plans and weekly pricing per client, impossible to deliver
+                manually
+              </li>
+              <li>
+                Built a production sheet system that generates per-meal kitchen
+                briefs with yield-adjusted shopping lists, removing manual
+                calculation from the weekly order cycle
+              </li>
+              <li>
+                Integrated the Anthropic Claude API as a bilingual (EN/PL)
+                natural language command bar, designed to cut order entry to
+                under a minute per customer and handle 100+ weekly orders in
+                under an hour
+              </li>
+            </ul>
+            <p>
+              Stack: Next.js · TypeScript · Supabase · Tailwind · shadcn/ui ·
+              Anthropic Claude API · next-intl · Vercel
+            </p>
+          </div>
+
+          <div class="cv-role">
+            <h4>Founder &amp; Design Engineer — Fiive</h4>
+            <p>Mar 2024 – Feb 2026 · Remote</p>
+            <p>
+              B2B SaaS agency-client operations platform centralising requests,
+              tasks, projects, and collaboration in a shared workspace.
+            </p>
+            <ul>
+              <li>
+                Led end-to-end product research under JTBD framework, conducting 19
+                interviews with senior agency and client stakeholders and
+                synthesising findings into feature prioritisation
+              </li>
+              <li>
+                Architected a secure multi-tenant backend with RLS policies and a
+                broad relational domain model ensuring zero data leakage across
+                organisation boundaries
+              </li>
+              <li>
+                Integrated production billing via Stripe with webhook processing,
+                signature verification, and full payment lifecycle management
+              </li>
+              <li>
+                Designed for scale from MVP with virtualised rendering and query
+                performance optimisation verified to 10,000+ tasks per organisation
+              </li>
+              <li>
+                Compressed an estimated 12 months of development into 12 weeks using
+                AI-assisted workflows, eliminating an estimated €250-500K in initial
+                funding requirement
+              </li>
+              <li>
+                Launched to 20+ organisations across the UK and EU, with active
+                users in both agency and client roles
+              </li>
+            </ul>
+            <p>
+              Stack: Next.js · React · TypeScript · Supabase · Tailwind ·
+              shadcn/ui · TanStack · Stripe · Resend · Vercel
+            </p>
+          </div>
+
+          <h3>Lead Product Designer — BPP</h3>
+          <p>Jul 2023 – Mar 2024 · Contract · London, UK · Hybrid</p>
+          <p>
+            One of the UK's largest professional education providers,
+            undergoing a large-scale digital transformation.
+          </p>
+          <ul>
+            <li>
+              Led an organisation-wide design system build from scratch,
+              establishing Figma variables, token structures, WCAG AA specs
+              (incl. ARIA) and component props
+            </li>
+            <li>
+              Embedded with engineering teams to publish Zeroheight
+              documentation, contribute to Storybook and ensure UI parity
+              across Product and Tech
+            </li>
+          </ul>
+
+          <h3>Senior Product Designer — eBay / Adevinta</h3>
+          <p>Sep 2021 – Sep 2022 · Contract · Berlin, Germany · Hybrid</p>
+          <p>
+            MOVE, eBay's automotive classifieds unit (mobile.de, Kijiji Autos),
+            later acquired by Adevinta.
+          </p>
+          <ul>
+            <li>
+              Built one design system shared across B2C, C2C and C2B
+              marketplaces, integrated into the development pipeline via
+              Storybook and Jenkins
+            </li>
+            <li>
+              Led UX for trade-in functionality on mobile.de and localised the
+              system post-acquisition for Canadian and Australian markets
+            </li>
+          </ul>
+
+          <h3>Senior Experience Designer — Konrad Group</h3>
+          <p>Mar 2020 – Sep 2021 · Full-time · Toronto, Canada · Hybrid</p>
+          <p>
+            Full-service digital consultancy delivering strategy and design for
+            global brands.
+          </p>
+          <ul>
+            <li>
+              Led UX for WestJet's in-flight entertainment system across 150+
+              aircraft, serving 22M guests a year
+            </li>
+            <li>
+              Redesigned Deloitte KX and restructured the information architecture
+              for Marks &amp; Spencer's mobile app
+            </li>
+          </ul>
+
+          <h3>
+            Further 5+ years prior experience in junior and mid-level roles across
+            London agencies.
+          </h3>
+
+          <hr />
+
+          <h2>Languages</h2>
+          <p>English (Native) · Polish (A2) · Spanish (B1)</p>
+        </div>
+      </main>
+    </div>
+
+    <div
+      id="download-fab"
+      class="no-print fixed bottom-6 left-1/2 z-50 flex -translate-x-1/2 justify-center"
+    >
+      <a
+        href="/cv/alex-kiersnowski-cv-2026.pdf"
+        download="alex-kiersnowski-cv-2026.pdf"
+        class="download-fab__btn pointer-events-auto flex items-center gap-3 rounded-full border border-white/25 bg-[#2d2d2d] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-black/25 outline-none ring-1 ring-black/10 transition hover:bg-[#3a3a3a] focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 active:bg-[#252525]"
+      >
+        <span>Download PDF</span>
+        <span
+          class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white"
+          aria-hidden="true"
+        >
+          <svg
+            class="h-4 w-4 text-white"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 5v9" />
+            <path d="m8 13 4 4 4-4" />
+            <path d="M5 19h14" />
+          </svg>
+        </span>
+      </a>
+    </div>
+  </body>
+</html>

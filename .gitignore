@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Original video masters (too large for git); ship the compressed encodes only
+public/videos/**/*_web.mp4
