@@ -181,8 +181,17 @@ export function SiteMenu({ open, onClose, triggerRef }: SiteMenuProps) {
     };
     window.addEventListener("keydown", onKeyDown);
 
+    // iOS/iPadOS Safari ignores overflow: hidden for touch and Apple Pencil scrolling, so block
+    // touch drags outside the panel instead. This leaves scroll position untouched (pinning the
+    // body would reset it and trip the header's hide-on-scroll when the menu closes).
+    const onTouchMove = (event: TouchEvent) => {
+      if (!panelRef.current?.contains(event.target as Node)) event.preventDefault();
+    };
+    document.addEventListener("touchmove", onTouchMove, { passive: false });
+
     return () => {
       window.clearTimeout(focusTimer);
+      document.removeEventListener("touchmove", onTouchMove);
       // Unlock scroll only after the close fade (0.45s): changing <html> overflow mid-fade makes
       // iOS Safari re-layout and skip repainting the fixed scrim, so it hangs and then cuts out.
       unlockRef.current = window.setTimeout(() => {
@@ -213,7 +222,7 @@ export function SiteMenu({ open, onClose, triggerRef }: SiteMenuProps) {
         role="dialog"
         aria-modal="true"
         aria-label="Menu"
-        className="invisible fixed inset-0 z-10 flex flex-col overflow-y-auto bg-popover px-5 pt-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] text-foreground opacity-0 sm:absolute sm:inset-auto sm:-top-3 sm:-right-3 sm:max-h-[calc(100dvh-0.5rem)] sm:w-[min(40rem,calc(100%+1.5rem))] sm:rounded-3xl sm:p-8 sm:pt-5"
+        className="invisible fixed inset-0 z-10 flex flex-col overflow-y-auto overscroll-contain bg-popover px-5 pt-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] text-foreground opacity-0 sm:absolute sm:inset-auto sm:-top-3 sm:-right-3 sm:max-h-[calc(100dvh-0.5rem)] sm:w-[min(40rem,calc(100%+1.5rem))] sm:rounded-3xl sm:p-8 sm:pt-5"
       >
         <div
           data-menu-fade
