@@ -44,7 +44,7 @@ export const projects: Project[] = [
   {
     slug: "fiive",
     title: "Fiive",
-    services: "Product Design & Full-Stack Build",
+    services: "Agency–client workspace",
     year: "2024–2026",
     poster: "/images/fiive/fiive-preview.jpg",
     about:
@@ -133,7 +133,7 @@ export const projects: Project[] = [
   {
     slug: "braza",
     title: "Braza",
-    services: "Full-Stack Build & AI",
+    services: "Meal prep operations platform",
     year: "2026",
     poster: "/images/braza/braza-preview.jpg",
     about:
@@ -220,7 +220,7 @@ export const projects: Project[] = [
   {
     slug: "nord-security",
     title: "Nord Security",
-    services: "Design Engineering & AI Prototyping",
+    services: "AI prototyping baselines",
     year: "2026",
     poster: "/images/nord/nord-preview.jpg",
     about:
@@ -228,7 +228,7 @@ export const projects: Project[] = [
     scope:
       "Designers at Nord Security prototyped with AI by generating NordVPN UI from scratch each time. This burned tokens, took design effort, and produced screens that didn't match the live apps. Production-accurate front-end baselines of the iOS and macOS apps gave every Aurora Riff prototype a real starting point, cutting token consumption, keeping prototypes true to the shipped product and saving hundreds of hours of prototyping time across the design organisation.",
     meta: {
-      role: "Senior Design Engineer",
+      role: "Senior Product Designer / Design Engineer",
     },
     outcomes: [
       "Coded NordVPN iOS and macOS baselines across Connect, Real-Time Protection, Dark Web Monitor and Settings",
