@@ -2,7 +2,7 @@ export const site = {
   name: "Alex Kiersnowski",
   role: ["Senior Product Designer", "& Design Engineer"],
   logo: "kiersnowski.com",
-  availability: "Available EU & US Eastern hours",
+  availability: "Available UK, EU & US Eastern hours",
   location: "Warsaw, Poland",
   email: "alex.kiersnowski@gmail.com",
   cv: "/cv",
