@@ -95,7 +95,7 @@
       }
 
       /*
-        Horizontal rules: symmetric vertical band; +1pt over Tailwind my-6 (1.5rem).
+        Horizontal rules: a little more air on each side, still within two pages.
         hr + h2: zero h2 top margin so it doesn’t stack with hr margin-bottom.
       */
       #cv-root.prose hr {
@@ -115,7 +115,7 @@
         margin-top: 0.35rem;
       }
 
-      /* Role titles: date line sits tight under the title. */
+      /* Role titles: date line sits tight under the title, with a small gap before the description. */
       #cv-root.prose h3:has(+ p),
       #cv-root.prose h4:has(+ p) {
         margin-bottom: 0;
@@ -123,6 +123,11 @@
       #cv-root.prose h3 + p,
       #cv-root.prose h4 + p {
         margin-top: 0.15rem;
+        margin-bottom: 0.5rem;
+      }
+      #cv-root.prose h3 + p + p,
+      #cv-root.prose h4 + p + p {
+        margin-top: 0;
       }
 
       /*
@@ -136,7 +141,7 @@
         border-left: 1px solid rgb(226 232 240);
       }
       #cv-root.prose .cv-role + .cv-role {
-        padding-top: 1rem;
+        padding-top: 1.25rem;
       }
       #cv-root.prose .cv-role > :first-child {
         margin-top: 0;
@@ -163,7 +168,7 @@
           class="prose prose-slate max-w-none font-sans text-[12px] text-slate-900 antialiased prose-headings:font-sans prose-headings:tracking-tight prose-headings:text-slate-900
             prose-h1:mb-0 prose-h1:scroll-mt-24 prose-h1:text-xl prose-h1:font-bold prose-h1:leading-tight prose-h1:text-slate-900
             prose-h2:mt-8 prose-h2:mb-3 prose-h2:scroll-mt-24 prose-h2:text-base prose-h2:font-semibold prose-h2:leading-snug prose-h2:text-slate-900
-            prose-h3:mt-6 prose-h3:mb-2 prose-h3:scroll-mt-24 prose-h3:text-[12px] prose-h3:font-semibold prose-h3:leading-snug prose-h3:text-slate-800
+            prose-h3:mt-5 prose-h3:mb-2 prose-h3:scroll-mt-24 prose-h3:text-[12px] prose-h3:font-semibold prose-h3:leading-snug prose-h3:text-slate-800
             prose-p:text-[12px] prose-p:leading-snug prose-p:text-slate-800
             prose-li:my-0.5 prose-li:text-[12px] prose-li:leading-snug prose-li:marker:text-slate-400
             prose-strong:text-[12px] prose-strong:font-semibold prose-strong:text-slate-900
@@ -210,6 +215,14 @@
           <hr />
 
           <h2>Experience</h2>
+
+          <h3>Senior Product Designer &amp; Design Engineer</h3>
+          <p>Oct 2026 – Present · Self-employed</p>
+          <p>
+            Product design and build for startups and product teams, using
+            AI-native workflows. Currently building a consumer iOS app end to
+            end, from product strategy and UX to production.
+          </p>
 
           <h3>Senior Product Designer / Design Engineer — Nord Security</h3>
           <p>Jul 2026 – Oct 2026 · Contract · Warsaw, Poland · Hybrid</p>
